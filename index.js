@@ -1,26 +1,26 @@
-const express = require('express');
+const express =require('express');
 const mongoose = require('mongoose');
 const todoHandler = require('./Handler/todoHandler')
 
-//initialization express
-const app = express();
-app.use(express.json())
-//connection with mongoose
+//connect with mongoose app
 mongoose.connect('mongodb://localhost/todo')
-        .then(()=>console.log("Connection was Successful"))
-        .catch((err)=>console.log(`This is an ${err}`))
+        .then(()=>console.log("connected successfully"))
+        .catch((err)=>console.log("connection is massing"))
 
-// application routes 
+//create app
+const app = express();
+app.use(express.json());
 app.use('/todo',todoHandler)
-// default error handler
-function errorHandler(err, req, res, next) {
-    if (res.headersSent) {
-      return next(err);
-    }
-    res.status(500).json({ error: err });
-  }
 
-//listening server
+//default error handling
+function errHandler(err,req,res,next){
+    if(err.headersSent){
+        return next(err)
+        
+    }
+    res.status(500).json({error:"There was a server side Error"})
+}
+//listen port
 app.listen(3000,()=>{
-    console.log("listening port -3000")
+    console.log('listening port -3000')
 })
