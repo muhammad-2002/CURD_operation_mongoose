@@ -8,11 +8,48 @@ const { result } = require('lodash');
 const Todo = new mongoose.model('Todo',todoSchema)
 
 //Method
-//GET A TODO
-router.get('/all/:id',async(req,res)=>{
-    await Todo.find({_id:req.params.id})
-              .then((data)=>res.status(200).json(data))
-              .catch(err=> res.status(500).json({err:err}))
+//GET Active todos with callback
+router.get('/active-callback',(req,res)=>{
+    const todo = new Todo()
+    todo.findActiveCallback()
+        .then((data)=>{
+            res.status(200).json(data)
+        })
+   
+
+    
+
+})
+//GET Active TODO
+router.get('/active',async(req,res)=>{
+    const todo = new Todo()
+    const data = await todo.findActive()
+    res.status(200).json(data,)
+
+    
+
+})
+//GET static TODO
+router.get('/something', async(req,res)=>{
+   const data = await Todo.findByReg();
+    res.status(200).json(data);
+
+    
+
+})
+//GET static TODO
+router.get('/something', async(req,res)=>{
+   const data = await Todo.findByReg();
+    res.status(200).json(data);
+
+    
+
+})
+//GET qurry TODO
+router.get('/language',async(req,res)=>{
+    const data =await Todo.find().findBylanguage('hero')
+    res.status(200).json(data,)
+             
     
 
 })
@@ -28,9 +65,9 @@ router.get('/all',async(req,res)=>{
 
 })
 //post A TODO
-router.post('/',async(req,res)=>{
+router.post('/',(req,res)=>{
     const newTodo = new Todo(req.body)
-   await newTodo.save()
+    newTodo.save()
            .then(()=>{
             res.status(200).json({error:"Inserted Successfully"})
            })

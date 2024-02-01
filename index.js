@@ -1,6 +1,8 @@
 const express =require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const todoHandler = require('./Handler/todoHandler')
+const userHandler = require('./Handler/userHandler')
 
 //connect with mongoose app
 mongoose.connect('mongodb://localhost/todo')
@@ -9,8 +11,10 @@ mongoose.connect('mongodb://localhost/todo')
 
 //create app
 const app = express();
+dotenv.config()
 app.use(express.json());
 app.use('/todo',todoHandler)
+app.use('/user',userHandler)
 
 //default error handling
 function errHandler(err,req,res,next){
