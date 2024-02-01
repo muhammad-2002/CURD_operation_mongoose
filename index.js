@@ -17,13 +17,15 @@ app.use('/todo',todoHandler)
 app.use('/user',userHandler)
 
 //default error handling
-function errHandler(err,req,res,next){
+const errHandler= (err,req,res,next)=>{
+   
     if(err.headersSent){
         return next(err)
         
     }
     res.status(500).json({error:"There was a server side Error"})
 }
+app.use(errHandler)
 //listen port
 app.listen(3000,()=>{
     console.log('listening port -3000')

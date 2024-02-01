@@ -1,8 +1,9 @@
 const express = require('express')
+const checkLogin = require('../middleware/checkLoging')
 const router = express.Router();
 const todoSchema =require('../Schema/todoSchema')
 const mongoose = require('mongoose');
-const { result } = require('lodash');
+
 
 //created ODM
 const Todo = new mongoose.model('Todo',todoSchema)
@@ -54,7 +55,7 @@ router.get('/language',async(req,res)=>{
 
 })
 //GET All TODO
-router.get('/all',async(req,res)=>{
+router.get('/all' ,checkLogin ,async(req,res)=>{
     await Todo.find({status:"active"}).select({
                 _id:0,
                 Date:0
