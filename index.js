@@ -18,6 +18,7 @@ app.use('/user',userHandler)
 
 //default error handling
 const errHandler= (err,req,res,next)=>{
+    console.log(err)
    
     if(err.headersSent){
         return next(err)

@@ -15,6 +15,12 @@ const userSchema = mongoose.Schema({
     status:{
         type:"string",
         enum:["active","inactive"]
-    }
+    },
+    todos:[
+        {
+        type:mongoose.Types.ObjectId,
+        ref: "Todo"
+        }
+    ]
 })
 module.exports = userSchema;

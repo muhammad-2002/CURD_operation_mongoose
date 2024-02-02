@@ -12,6 +12,10 @@ const todoSchema = mongoose.Schema({
     Date:{
         type:Date,
         default:Date.now
+    },
+    user:{
+        type:mongoose.Types.ObjectId,
+        ref:"User"           //User moudle
     }
 })
 //custom instance method
